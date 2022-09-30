@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+{%load static%}
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>SmartOS</title>
+    <link href="{% static 'style.css' %}" rel="stylesheet" type="text/css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <nav class="navbar ps-5 pe-5 navbar-expand-lg bg-light shadow">
+      <div class="container-fluid col-2">
+        <a class="navbar-brand" href="#">SmartOS</a>
+      </div>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div
+        class="collapse navbar-collapse justify-content-center"
+        id="navbarNav"
+      >
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link nav-hover disabled" href="/os">OS</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link nav-hover" href="/courses_mac">Courses</a>
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link nav-hover nav-selected"
+              aria-current="page"
+              href=""
+              >Forum</a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link nav-hover" href="/quiz_mac">Quiz</a>
+          </li>
+        </ul>
+      </div>
+      <div class="col-2 d-flex justify-content-end pe-3">
+        <div class="dropdown">
+          <button
+            class="btn dropdown-toggle"
+            type="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <span class="me-2" style="color: gray">{{ request.user }}</span>
+
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="22"
+              height="22"
+              style="color: gray"
+              fill="currentColor"
+              class="bi bi-person-circle"
+              viewBox="0 0 16 16"
+            >
+              <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+              <path
+                fill-rule="evenodd"
+                d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"
+              />
+            </svg>
+          </button>
+          <ul class="dropdown-menu dropdown-menu">
+            {% if user.is_authenticated %}
+            <li>
+              <a class="dropdown-item" href="{% url 'logout' %}">Log Out</a>
+            </li>
+            {% else %}
+            <li>
+              <a class="dropdown-item" href="{% url 'login' %}">Log in</a>
+            </li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="container">
+      <div class="col-6 offset-3 mt-4">
+        <form class="d-flex" role="search">
+          <input
+            class="form-control rounded-5 placeholder-align shadow me-2 mt-4"
+            type="search"
+            placeholder="Search and solve your problem"
+            aria-label="Search"
+          />
+          <!-- <button class="btn btn-outline-success mt-5" type="submit">Search</button> -->
+        </form>
+      </div>
+      <div class="col-10 offset-1 mt-5">
+        <h2 class="header-style mb-4 text-center">Forum</h2>
+
+        <div class="d-flex col-12">
+          <div class="col-4 border">
+            <table class="table">
+              <thead>
+                <tr class="forum-color-accent text-center">
+                  <th scope="col">Topics</th>
+                </tr>
+              </thead>
+              <tbody id="topics_body">
+                <tr>
+                  <td>Mark</td>
+                </tr>
+                <tr>
+                  <td>Jacob</td>
+                </tr>
+                <tr>
+                  <td>Larry the Bird</td>
+                </tr>
+              </tbody>
+            </table>
+            <div>
+              <input name="topic" id="topic" class="w-75" type="text" />
+              <button
+                class="btn btn-sm ms-2 btn-secondary"
+                onclick="postTopic();"
+              >
+                Create
+              </button>
+            </div>
+          </div>
+          <div class="col-8 border">
+            <div class="m-4">
+              <table class="table" id="table_chat">
+                <tbody id="tbody">
+                  <tr>
+                    <td>
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                      Natus excepturi voluptatibus ad. Facere, ab debitis animi
+                      libero sint in culpa id earum modi ducimus laudantium
+                      voluptates iusto quam, officia consectetur.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      Consectetur adipisicing elit. Natus excepturi voluptatibus
+                      ad. Facere, ab debitis animi libero sint in culpa id earum
+                      modi ducimus laudantium voluptates iusto quam, officia
+                      consectetur.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      Facere, ab debitis animi libero sint in culpa id earum
+                      modi ducimus laudantium voluptates iusto quam, officia
+                      consectetur.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <div>
+                <input name="chat" id="chat" class="w-75" type="text" />
+                <button
+                  class="btn btn-sm ms-2 btn-secondary"
+                  onclick="postChat();"
+                >
+                  Post
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"
+      integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js"
+      integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      let tbodyEl = document.querySelector("#tbody");
+      let tbodyTopicEl = document.querySelector("#topics_body");
+      //   let tableEl = document.querySelector("#table");
+
+      function postChat() {
+        let chat = document.getElementById("chat").value;
+        tbodyEl.innerHTML += `
+              <tr>
+                  <td>${chat}</td>
+              </tr>
+          `;
+      }
+      function postTopic() {
+        let topic = document.getElementById("topic").value;
+        tbodyTopicEl.innerHTML += `
+              <tr>
+                  <td>${topic}</td>
+              </tr>
+          `;
+      }
+    </script>
+  </body>
+</html>
